@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using RandomUserSqlDbGenerator;
+
+string url = "https://randomuser.me/api/";
+var user = await ApiService.GetUserAsync(url);
