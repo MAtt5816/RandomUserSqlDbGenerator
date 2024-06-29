@@ -7,9 +7,9 @@ namespace RandomUserSqlDbGenerator
     {
         private static readonly HttpClient client = new();
 
-        internal static async Task<User?> GetUserAsync(string path)
+        internal static async Task<List<User>> GetUsersAsync(string path)
         {
-            User? user = null;
+            List<User> userList = [];
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
@@ -19,10 +19,10 @@ namespace RandomUserSqlDbGenerator
                 };
 
                 var json = await response.Content.ReadAsStringAsync();
-                var users = JsonSerializer.Deserialize<ApiResult>(json, options);
-                user = users?.Results.FirstOrDefault();
+                var result = JsonSerializer.Deserialize<ApiResult>(json, options);
+                userList = result?.Results ?? [];
             }
-            return user;
+            return userList;
         }
     }
 }

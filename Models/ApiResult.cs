@@ -2,6 +2,6 @@
 {
     internal class ApiResult
     {
-        public List<User> Results { get; set; } = [];
+        public List<User> Results { get; init; } = [];
     }
 }
