@@ -19,10 +19,16 @@ namespace RandomUserSqlDbGenerator
                 };
 
                 var json = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<ApiResult>(json, options);
+                var formattedJson = ProtectSingleQuotes(json);
+                var result = JsonSerializer.Deserialize<ApiResult>(formattedJson, options);
                 userList = result?.Results ?? [];
             }
             return userList;
+        }
+        
+        private static string ProtectSingleQuotes(string json)
+        {
+            return json.Replace("'", "''");
         }
     }
 }

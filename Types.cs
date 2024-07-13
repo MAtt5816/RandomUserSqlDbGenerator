@@ -27,7 +27,17 @@
 
     internal struct DateAge
     {
-        public string Date { get; set; }
+        private string _date;
+
+        public string Date
+        {
+            get => _date;
+            set
+            {
+                var date = value.Replace("T", " ");
+                _date = date.Remove(date.IndexOf('.'));
+            }
+        }
         public int Age { get; set; }
     }
 
