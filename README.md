@@ -1,3 +1,7 @@
+# Introduction
+
+The Random User SQL DB Generator is designed for generating SQL database import file. Application use random fake data from [API](https://randomuser.me).
+
 # How to run?
 
 [Bulid project](#build-project) or [use Docker image](#use-docker-image).
@@ -24,3 +28,6 @@ Run:
 docker run --rm ghcr.io/matt5816/random-user-sql-db-generator:latest 1000 > db.sql
 ```
 where `1000` is a number of users to generate (**must be greater than 0**) and `db.sql` is name of output SQL file.
+
+# References
+* RANDOM USER GENERATOR open-source API: https://randomuser.me/
