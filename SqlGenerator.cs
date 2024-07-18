@@ -7,8 +7,6 @@ namespace RandomUserSqlDbGenerator
         private const string InsertIntoUsers =
             "INSERT INTO users (gender, title, first_name, last_name, email, dob, age, registered, registered_age, phone, cell, id_name, id_value, nat)\nVALUES\n";
 
-        private const string SetLastUserId = "SET @user_id = LAST_INSERT_ID();\n";
-
         private const string InsertIntoLocations =
             "INSERT INTO locations (user_id, street_number, street_name, city, state, country, postcode, latitude, longitude, timezone_offset, timezone_description)\nVALUES\n";
 
@@ -26,6 +24,8 @@ namespace RandomUserSqlDbGenerator
             string picturesValues = string.Empty;
 
             bool isFirstLoop = true;
+
+            int i = 1;
 
             foreach (var user in users)
             {
@@ -46,17 +46,19 @@ namespace RandomUserSqlDbGenerator
 
                 var location = user.Location;
                 locationsValues +=
-                    $"(@user_id, {location.Street.Number}, '{location.Street.Name}', '{location.City}', '{location.State}', " +
+                    $"({i}, {location.Street.Number}, '{location.Street.Name}', '{location.City}', '{location.State}', " +
                     $"'{location.Country}', '{location.Postcode}', {location.Coordinates.Latitude}, {location.Coordinates.Longitude}, " +
                     $"'{location.Timezone.Offset}', '{location.Timezone.Description}')";
 
                 var login = user.Login;
                 loginsValues +=
-                    $"(@user_id, '{login.Uuid}', '{login.Username}', '{login.Password}', '{login.Salt}', '{login.Md5}', '{login.Sha1}', '{login.Sha256}')";
+                    $"({i}, '{login.Uuid}', '{login.Username}', '{login.Password}', '{login.Salt}', '{login.Md5}', '{login.Sha1}', '{login.Sha256}')";
 
                 var picture = user.Picture;
                 picturesValues +=
-                    $"(@user_id, '{picture.Large}', '{picture.Medium}', '{picture.Thumbnail}')";
+                    $"({i}, '{picture.Large}', '{picture.Medium}', '{picture.Thumbnail}')";
+
+                i++;
             }
 
             usersValues += ";\n";
@@ -65,7 +67,6 @@ namespace RandomUserSqlDbGenerator
             picturesValues += ";\n";
 
             return InsertIntoUsers + usersValues + "\n"
-                   + SetLastUserId + "\n"
                    + InsertIntoLocations + locationsValues + "\n"
                    + InsertIntoLogins + loginsValues + "\n"
                    + InsertIntoPictures + picturesValues;
