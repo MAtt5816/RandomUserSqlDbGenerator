@@ -9,10 +9,8 @@ CREATE TABLE users
     first_name     VARCHAR(50),
     last_name      VARCHAR(50),
     email          VARCHAR(100),
-    dob            DATETIME,
-    age            INT,
+    dob            DATE,
     registered     DATETIME,
-    registered_age INT,
     phone          VARCHAR(20),
     cell           VARCHAR(20),
     id_name        VARCHAR(20),
@@ -22,17 +20,14 @@ CREATE TABLE users
 
 CREATE TABLE locations
 (
-    user_id              INT,
-    street_number        INT,
-    street_name          VARCHAR(100),
-    city                 VARCHAR(100),
-    state                VARCHAR(100),
-    country              VARCHAR(100),
-    postcode             VARCHAR(20),
-    latitude             DECIMAL(9, 6),
-    longitude            DECIMAL(9, 6),
-    timezone_offset      VARCHAR(10),
-    timezone_description VARCHAR(100),
+    user_id       INT,
+    street_number INT,
+    street_name   VARCHAR(100),
+    city          VARCHAR(100),
+    state         VARCHAR(100),
+    country       VARCHAR(100),
+    postcode      VARCHAR(20),
+    timezone      VARCHAR(10),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

@@ -5,10 +5,10 @@ namespace RandomUserSqlDbGenerator
     public static class SqlGenerator
     {
         private const string InsertIntoUsers =
-            "INSERT INTO users (gender, title, first_name, last_name, email, dob, age, registered, registered_age, phone, cell, id_name, id_value, nat)\nVALUES\n";
+            "INSERT INTO users (gender, title, first_name, last_name, email, dob, registered, phone, cell, id_name, id_value, nat)\nVALUES\n";
 
         private const string InsertIntoLocations =
-            "INSERT INTO locations (user_id, street_number, street_name, city, state, country, postcode, latitude, longitude, timezone_offset, timezone_description)\nVALUES\n";
+            "INSERT INTO locations (user_id, street_number, street_name, city, state, country, postcode, timezone)\nVALUES\n";
 
         private const string InsertIntoLogins =
             "INSERT INTO logins (user_id, uuid, username, password, salt, md5, sha1, sha256)\nVALUES\n";
@@ -41,14 +41,13 @@ namespace RandomUserSqlDbGenerator
 
                 usersValues +=
                     $"('{user.Gender}', '{user.Name.Title}', '{user.Name.First}', '{user.Name.Last}', '{user.Email}', " +
-                    $"'{user.Dob.Date}', {user.Dob.Age}, '{user.Registered.Date}', {user.Registered.Age}, '{user.Phone}', '{user.Cell}', " +
+                    $"'{user.Dob.Date}', '{user.Registered.Datetime}', '{user.Phone}', '{user.Cell}', " +
                     $"'{user.Id.Name}', '{user.Id.Value}', '{user.Nat}')";
 
                 var location = user.Location;
                 locationsValues +=
                     $"({i}, {location.Street.Number}, '{location.Street.Name}', '{location.City}', '{location.State}', " +
-                    $"'{location.Country}', '{location.Postcode}', {location.Coordinates.Latitude}, {location.Coordinates.Longitude}, " +
-                    $"'{location.Timezone.Offset}', '{location.Timezone.Description}')";
+                    $"'{location.Country}', '{location.Postcode}', '{location.Timezone.Offset}')";
 
                 var login = user.Login;
                 loginsValues +=

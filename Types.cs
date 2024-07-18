@@ -13,16 +13,9 @@
         public string Name { get; set; }
     }
 
-    internal struct Coordinates
-    {
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-    }
-
     internal struct Timezone
     {
         public string Offset { get; set; }
-        public string Description { get; set; }
     }
 
     internal struct DateAge
@@ -31,14 +24,16 @@
 
         public string Date
         {
-            get => _date;
+            // get property simplify datetime to date format
+            get => _date.Split(' ').FirstOrDefault() ?? _date;
             set
             {
                 var date = value.Replace("T", " ");
                 _date = date.Remove(date.IndexOf('.'));
             }
         }
-        public int Age { get; set; }
+
+        public string Datetime => _date;
     }
 
     internal struct Id
